@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--<script src="http://apps.bdimg.com/libs/crypto-js/3.1.2/components/core-min.js"></script>
+    <script src="http://apps.bdimg.com/libs/crypto-js/3.1.2/rollups/hmac-sha1.js"></script>
+    <script src="base64_d.js"></script>-->
+    <script src="base64_d.js"></script>
+    <script src = "sha1.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="result">
+
+    </div>
+    <script>
+        function result(msg){
+            var div = document.createElement("div");
+            div.innerHTML = msg;
+            document.getElementById("result").appendChild(div);
+            return msg;
+        }
+        window.onload = function () {
+            var url = "http://api.hengqian.net/openApi/sessionKey/requestToken";
+            //处理请求参数
+            var searchMap = [];
+            searchMap.push({
+                key: "callBackUrl",
+                value: "oob"
+            });
+            searchMap.push({
+                key: "consumerKey",
+                value: "Xg1hwyuURNDMFEl6JEnu1d22nbYfoBom"
+            });
+            searchMap.push({
+                key: "timeTamp",
+                value:parseInt((new Date()).getTime()/1000)
+            });
+            //计算签名
+            var sign = function (searchMap) {
+                var signMap = encodeURIComponent(url) + "&" + searchMap.map(function (v) {
+                    return v.key + "%3D" + v.value;
+                }).join("%26");
+                return hex_hmac_sha1("fdb4da6f2ff584d45af1e10dc45745f7", signMap);
+            }
+            var wholdurl = url + "?" + searchMap.map(function (v) {
+                return v.key + "=" + v.value;
+            }).join("&") + "&sign=" + result(BASE64.encoder(sign(searchMap)));
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", wholdurl, true);
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if(this.status == 200){
+                        document.getElementById("result").appendChild(document.createTextNode(this.responseText));
+                    }
+                }
+            }
+            xhr.send();
+        }
+    </script>
+</body>
+
+</html>
