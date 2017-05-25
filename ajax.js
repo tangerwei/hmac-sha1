@@ -97,12 +97,14 @@
                 if (this.readyState == 4) {
                     if (this.status == 200) {
                         if (typeof func == "function") {
-                            func(xhr);
+                            func(JSON.parse(this.responseText));
                         }
+                    }
+                    if(this.status == 0){
+                        console.log("hello");
                     }
                 }
             }
-            xhr.send();
             //used to open window
             return wholeUrl;
         },

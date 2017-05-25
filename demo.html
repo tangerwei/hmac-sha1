@@ -38,10 +38,8 @@
                 url: url,
                 secretKey: "fdb4da6f2ff584d45af1e10dc45745f7"
             });
-            var wholeurl = request.queryData(function(xhr){
-                xhr.onError = function(){
-                    alert("hello");
-                }
+            var wholeurl = request.queryData(function(){
+                
             });
             addLink(wholeurl,"获取临时令牌Request Token接口");
 
