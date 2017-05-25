@@ -7,7 +7,7 @@ This is API of stack.js
 ### create:
 > var s = new Stack();
 ### push
-> s.push(1);
+> s.push(1);  
 > s.push(1,3,5);
 ### pop : return the top elemnt and remove this element from stack
 > var t = s.pop();
@@ -28,7 +28,7 @@ This is API of queue.js
 ### create:
 > var s = new Queue();
 ### push
-> s.enqueue(1);
+> s.enqueue(1);  
 > s.enqueue(1,3,5);
 ### pop : return the top elemnt and remove this element from stack
 > var t = s.dequeue();
